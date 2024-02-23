@@ -1,0 +1,11 @@
+{
+  "Version": 1,
+  "Hash": "z4w4XTrEkHgEIxBCTMaaqzlxjCFR1q7flc5mJtWTzKM=",
+  "Source": "SocketSignalR",
+  "BasePath": "_content/SocketSignalR",
+  "Mode": "Default",
+  "ManifestType": "Build",
+  "ReferencedProjectsConfiguration": [],
+  "DiscoveryPatterns": [],
+  "Assets": []
+}
