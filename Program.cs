@@ -1,9 +1,12 @@
-using Microsoft.AspNetCore.SignalR;
+using Microsoft.OpenApi.Models;
 using SocketSignalR;
 
 var builder = WebApplication.CreateBuilder(args);
 
-builder.WebHost.UseUrls("http://localhost:5101/");
+builder.Services.AddSwaggerGen(c =>
+{
+    c.SwaggerDoc("v1", new OpenApiInfo { Title = "Nombre de tu API", Version = "v1" });
+});
 
 builder.Services.AddControllersWithViews();
 builder.Services.AddRazorPages();
@@ -14,6 +17,11 @@ var app = builder.Build();
 if (app.Environment.IsDevelopment())
 {
     app.UseDeveloperExceptionPage();
+    app.UseSwagger();
+    app.UseSwaggerUI(c =>
+    {
+        c.SwaggerEndpoint("/swagger/v1/swagger.json", "Nombre de tu API V1");
+    });
 }
 else
 {
@@ -24,12 +32,12 @@ else
 app.UseHttpsRedirection();
 app.UseStaticFiles();
 
-// Configuración de CORS
+
 app.UseCors(builder =>
 {
-    builder.AllowAnyOrigin() // Permitir solicitudes desde cualquier origen
-           .AllowAnyMethod() // Permitir cualquier método HTTP
-           .AllowAnyHeader(); // Permitir cualquier encabezado HTTP
+    builder.AllowAnyOrigin()
+           .AllowAnyMethod()
+           .AllowAnyHeader();
 });
 
 app.MapControllerRoute(
@@ -40,5 +48,3 @@ app.MapRazorPages();
 app.MapHub<SocketHub>("/SocketHub");
 
 app.Run();
-
-
